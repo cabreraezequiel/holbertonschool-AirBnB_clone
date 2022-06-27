@@ -14,11 +14,11 @@ class FileStorage:
         return FileStorage.__objects
     def new(self, obj):
         """ sets in __objects the obj with key <obj class name>.id """
-        FileStorage.__objects = {f"{obj.__class__.__name__}.{id}":obj}
+        self.__objects = {f"{obj.__class__.__name__}.{obj.id}":obj.to_dict()}
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path) """
         with open(self.__file_path, mode="w", encoding="utf-8") as f:
-            json.dump(self.__objects, f)
+            json.dump(self.__objects, f, default=str)
     def reload(self):
         """ deserializes the JSON file to __objects """
         try:

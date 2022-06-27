@@ -22,9 +22,8 @@ class BaseModel:
                             kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
                 else:
                     self.__dict__[key] = kwargs[key]
-            else:
-                dict = self.to_dict
-                storage.new(dict)
+        else:
+            storage.new(self)
 
     def __str__(self):
         """ overrides str method """
