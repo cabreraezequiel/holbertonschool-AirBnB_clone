@@ -22,7 +22,7 @@ class BaseModel:
                             kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
                 else:
                     self.__dict__[key] = kwargs[key]
-        else:
+        if len(kwargs) == 0 or kwargs is None:
             storage.new(self)
 
     def __str__(self):
@@ -39,6 +39,6 @@ class BaseModel:
         """ returns a dictionary containing all keys/values of __dict__
         of the instance """
         self.__dict__["__class__"] = __class__.__name__
-        self.__dict__["created_at"] = (self.__dict__["created_at"]).isoformat("T")
-        self.__dict__["updated_at"] = (self.__dict__["updated_at"]).isoformat("T")        
+        self.__dict__["created_at"] = (self.__dict__["created_at"]).isoformat()
+        self.__dict__["updated_at"] = (self.__dict__["updated_at"]).isoformat()
         return self.__dict__

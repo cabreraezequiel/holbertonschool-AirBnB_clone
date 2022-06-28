@@ -1,8 +1,6 @@
 #!/usr/bin/python3
-""" Class definition """
 import cmd
-import uuid
-import datetime
+""" Class definition """
 
 
 class HBNBCommand(cmd.Cmd):
@@ -16,6 +14,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, arg):
         """EOF to exit the program"""
         exit()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
