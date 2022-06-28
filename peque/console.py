@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+""" Class definition """
 import cmd
 from models.base_model import BaseModel
-""" Class definition """
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -36,6 +37,7 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance based on the class name and id"""
         if len(arg.split()) == 0:
             print("** class name missing **")
+            return
         elif len(arg.split()) > 0:
             try:
                 eval(arg.split()[0])
@@ -44,9 +46,15 @@ class HBNBCommand(cmd.Cmd):
                 return
         if len(arg.split()) < 2:
             print("** instance id missing **")
+            return
         else:
-            try
-        
+            d = storage.all()
+            if f"{arg.split()[0]}.{arg.split()[1]}" in d:
+                print(d[f"{arg.split()[0]}.{arg.split()[1]}"])
+            else:
+                print("** no instance found **")
+
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
