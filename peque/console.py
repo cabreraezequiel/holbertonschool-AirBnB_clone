@@ -76,6 +76,28 @@ class name and id"""
             else:
                 print("** no instance found **")
 
+    def do_count(self, arg):
+        """Retrieve the number of instances of a class: <class name>.count()"""
+        if len(arg.split()) == 0:
+            print("** class name missing **")
+            return
+        elif len(arg.split()) > 0:
+            try:
+                eval(arg.split()[0])
+            except NameError:
+                print("** class doesn't exist **")
+                return
+        if len(arg.split()) < 1:
+            print("** instance id missing **")
+            return
+        else:
+            count = 0
+            d = storage.all()
+            for key in d:
+                if f"{str(arg)}" in key:
+                    count += 1
+            print(count)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
