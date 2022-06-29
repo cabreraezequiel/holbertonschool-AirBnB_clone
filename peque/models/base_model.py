@@ -27,7 +27,7 @@ class BaseModel:
 
     def __str__(self):
         """ overrides str method """
-        return(f"[{__class__.__name__}] ({self.id}) {self.__dict__}")
+        return(f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}")
 
     def save(self):
         """ updates the public instance attribute updated_at with the
@@ -38,7 +38,7 @@ class BaseModel:
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__
         of the instance """
-        self.__dict__["__class__"] = __class__.__name__
+        self.__dict__["__class__"] = self.__class__.__name__
         self.__dict__["created_at"] = (self.__dict__["created_at"]).isoformat()
         self.__dict__["updated_at"] = (self.__dict__["updated_at"]).isoformat()
         return self.__dict__
