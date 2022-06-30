@@ -38,7 +38,8 @@ class BaseModel:
     def to_dict(self):
         """ returns a dictionary containing all keys/values of __dict__
         of the instance """
-        self.__dict__["__class__"] = self.__class__.__name__
-        self.__dict__["created_at"] = (self.__dict__["created_at"]).isoformat()
-        self.__dict__["updated_at"] = (self.__dict__["updated_at"]).isoformat()
-        return self.__dict__
+        dic = self.__dict__
+        dic["created_at"] = (self.__dict__["created_at"]).isoformat()
+        dic["updated_at"] = (self.__dict__["updated_at"]).isoformat()
+        dic['__class__'] = self.__class__.__name__
+        return dic
