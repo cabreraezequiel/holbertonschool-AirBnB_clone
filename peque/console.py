@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Class definition """
 import cmd
+import re
 from models.base_model import BaseModel
 from models import storage
 from models.state import State
@@ -20,13 +21,16 @@ class HBNBCommand(cmd.Cmd):
         cmd.Cmd.__init__(self)
         self.aliases = {
             'show': self.do_show,
-            'h': self.do_help}
+            'count': self.do_count}
 
     def default(self, line):
         """Default"""
-        arg = (line.replace('(', '.')).split('.')
-        if len(arg) > 2 and arg[1] in self.aliases:
-            self.aliases[arg[1]](f"{str(arg[0])} {str(arg[2])[:-1]}")
+#       arg = (line.replace('(', '.')).split('.')
+        pattern = r"[(.)]"
+        arg = re.split(pattern, line)
+        print(arg)
+        if len(arg) > 3 and arg[1] in self.aliases:
+            self.aliases[arg[1]](f"{str(arg[0])} {str(arg[2])}")
         else:
             print("*** Unknown syntax: %s" % line)
 
@@ -77,7 +81,7 @@ class name and id"""
                 print("** no instance found **")
 
     def do_count(self, arg):
-        """Retrieve the number of instances of a class: <class name>.count()"""
+        """Retrieve the number of instances of a class"""
         if len(arg.split()) == 0:
             print("** class name missing **")
             return
@@ -94,7 +98,7 @@ class name and id"""
             count = 0
             d = storage.all()
             for key in d:
-                if f"{str(arg)}" in key:
+                if f"{str(arg.split()[0])}" in key:
                     count += 1
             print(count)
 
