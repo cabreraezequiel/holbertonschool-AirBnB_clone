@@ -86,11 +86,18 @@ name>.show(<id>)\33[0m"""
 #            print(count)
 
     def do_all(self, arg):
-        """Retrieve the number of instances of a class"""
-        if len(arg.split()) < 2:
-            dic = []
+        """Prints all string representation of all instances based or not on the class name"""
+        dic = []
+        if len(arg.split()) < 1:
             for value in storage.all().values():
                 dic.append(str(value))
+            print(dic)
+        elif arg.split()[0] not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            for value in storage.all().values():
+                if arg.split()[0] == value.__class__.__name__:
+                    dic.append(str(value))
             print(dic)
 
 
