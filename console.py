@@ -64,35 +64,10 @@ name>.show(<id>)\33[0m"""
             else:
                 print("** no instance found **")
 
-    def do_count(self, arg):
-        """Retrieve the number of instances of a class"""
-        if len(arg.split()) == 0:
-            print("** class name missing **")
-            return
-        elif len(arg.split()) > 0:
-            try:
-                eval(arg.split()[0])
-            except NameError:
-                print("** class doesn't exist **")
-                return
-        if len(arg.split()) < 1:
-            print("** instance id missing **")
-            return
-        else:
-            count = 0
-            d = storage.all()
-            for key in d:
-                if f"{str(arg.split()[0])}" in key:
-                    count += 1
-            print(count)
-
-#    def do_all(self, arg):
+#    def do_count(self, arg):
 #        """Retrieve the number of instances of a class"""
 #        if len(arg.split()) == 0:
-#            dic = storage.all()
-#            for key in dic:
-#                print(dic[key].__repr__(), end="")
-#            return
+#            print("** class name missing **")
 #        elif len(arg.split()) > 0:
 #            try:
 #                eval(arg.split()[0])
@@ -109,6 +84,14 @@ name>.show(<id>)\33[0m"""
 #                if f"{str(arg.split()[0])}" in key:
 #                    count += 1
 #            print(count)
+
+    def do_all(self, arg):
+        """Retrieve the number of instances of a class"""
+        if len(arg.split()) < 2:
+            dic = []
+            for value in storage.all().values():
+                dic.append(str(value))
+            print(dic)
 
 
 if __name__ == '__main__':
