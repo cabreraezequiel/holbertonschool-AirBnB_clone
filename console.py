@@ -36,38 +36,29 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it and prints the id. Usage create \33[31m<class name>\33[30m"""
-        args = arg.split()
-        if len(args) == 0:
+        if len(arg.split()) == 0:
             print("** class name missing **")
         else:
             try:
-                new_instance = (eval(args[0]))()
+                new_instance = storage.classes()[arg.split()[0]]()
                 new_instance.save()
                 print(new_instance.id)
-            except NameError:
+            except KeyError:
                 print("** class doesn't exist **")
 
     def do_show(self, arg):
         """Prints the string representation of an instance based on the \
 class name and id. Usage \33[31mshow <class name> <id>\33[0m or \33[31m<class \
 name>.show(<id>)\33[0m"""
-        args = arg.split()
-        if len(args) == 0:
+
+        if len(arg.split()) == 0:
             print("** class name missing **")
-            return
-        elif len(args) > 0:
-            try:
-                eval(args[0])
-            except NameError:
-                print("** class doesn't exist **")
-                return
-        if len(args) < 2:
+        elif arg.split()[0] not in storage.classes():
+             print("** class doesn't exist **")
+        elif len(arg.split()) < 2:
             print("** instance id missing **")
-            return
         else:
             dic = storage.all()
-#            print(dic)
-#            print(f"{arg.split()[0]}.{arg.split()[1]}")
             if f"{arg.split()[0]}.{arg.split()[1]}" in dic:
                 print(dic[f"{arg.split()[0]}.{arg.split()[1]}"])
             else:
