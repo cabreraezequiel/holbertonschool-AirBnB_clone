@@ -14,7 +14,7 @@ from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand that inherits from cmd """
-    prompt = '(hbnb) '
+    prompt = '(hbnb)'
 
     def __init__(self):
         """Initializes"""
