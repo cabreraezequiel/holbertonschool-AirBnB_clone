@@ -16,23 +16,18 @@ class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand that inherits from cmd """
     prompt = '(hbnb)'
 
-    def __init__(self):
-        """Initializes"""
-        cmd.Cmd.__init__(self)
-        self.aliases = {
-            'show': self.do_show,
-            'count': self.do_count}
-
-    def default(self, line):
-        """Default"""
+#    def default(self, line):
+#        """Default"""
 ##       arg = (line.replace('(', '.')).split('.')
-        pattern = r"[(.)]"
-        arg = re.split(pattern, line)
+#        pattern = r"[(.)]"
+#        arg = re.split(pattern, line)
 #        print(arg)
-        if len(arg) > 3 and arg[1] in self.aliases:
-            self.aliases[arg[1]](f"{str(arg[0])} {str(arg[2])}")
-        else:
-            print("*** Unknown syntax: %s" % line)
+#        func = self.aliases
+#        command = arg[1]
+#        if len(arg) > 3:# and func[arg[1]]:
+#            (func[command])(f"{str(arg[0])} {str(arg[2])}")
+#        else:
+#            print("*** Unknown syntax: %s" % line)
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
