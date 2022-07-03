@@ -7,7 +7,10 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand that inherits from cmd """
-    prompt = '(hbnb) '
+    if sys.stdin and sys.stdin.isatty():
+        prompt = '(hbnb) '
+    else:
+        prompt = '(hbnb)\n'
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
