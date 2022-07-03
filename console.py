@@ -105,6 +105,15 @@ class name>.all\33[0m --\033[91m[OPTIONAL]\33[0m"""
                     dic.append(str(value))
             print(dic)
 
+    def precmd(self, line):
+        pattern = r"[(.)]"
+        arg = re.split(pattern, line)
+        print(arg)
+        if len(arg) > 3:# and func[arg[1]]:
+            line = (f"{str(arg[1])} {str(arg[0])} {str(arg[2])}")
+#        else:
+#            print("*** Unknown syntax: %s" % line)
+        return cmd.Cmd.precmd(self, line)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
