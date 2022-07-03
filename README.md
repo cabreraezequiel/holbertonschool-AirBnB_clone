@@ -22,7 +22,7 @@ The console supports interactiva and non-interactive mode.
 
 Non-interactive mode 
 ```
-$ echo "help create BaseModel" | ./console.py
+$ echo "create BaseModel" | ./console.py
 (hbnb) 27eb1663-0e90-4475-b304-d3b9e5404378
 ```
 # Models
