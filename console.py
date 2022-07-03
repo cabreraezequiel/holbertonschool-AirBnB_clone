@@ -107,6 +107,32 @@ class name>.all\33[0m --\033[91m[OPTIONAL]\33[0m"""
             else:
                 print("** no instance found **")
 
+    def do_update(self, arg):
+        """Updates an instance based on the class name and id by adding or \
+updating attribute \033[92mupdate <class name> <id> <attribute name> \
+"<attribute value>"\33[0m or \033[92m<class name>.destroy\
+(<id>)\33[0m"""
+
+        if len(arg.split()) == 0:
+            print("** class name missing **")
+        elif arg.split()[0] not in storage.classes():
+            print("** class doesn't exist **")
+        elif len(arg.split()) < 2:
+            print("** instance id missing **")
+        elif f"{arg.split()[0]}.{arg.split()[1]}" not in storage.all():
+            print("** no instance found **")
+        elif len(arg.split()) < 3:
+            print("** attribute name missing **")
+        elif len(arg.split()) < 4:
+            print("** value missing **")
+        else:
+            k = f"{arg.split()[0]}.{arg.split()[1]}"
+            value = arg.split()[3]
+            if value[0] == '"' and value[-1] == '"':
+                value = value[1:-1]
+            setattr(storage.all()[k], arg.split()[2], value)
+            storage.save()
+
     def precmd(self, line):
         """Changes input"""
         pattern = r"[(.)]"
