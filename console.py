@@ -138,7 +138,10 @@ updating attribute \033[92mupdate <class name> <id> <attribute name> \
         pattern = r"[(.)]"
         arg = re.split(pattern, line)
         if len(arg) > 3:
-            line = (f"{str(arg[1])} {str(arg[0])} {str(arg[2])}")
+            if ", " in arg[2]:
+                value = str(arg[2].replace(", ", " "))
+                print(value)
+            line = (f"{str(arg[1])} {str(arg[0])} {value}")
         return cmd.Cmd.precmd(self, line)
 
 
