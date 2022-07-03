@@ -2,6 +2,7 @@
 """ Class definition """
 import cmd
 import re
+import sys
 from models import storage
 
 
@@ -46,7 +47,7 @@ class name>.show(<id>)\33[0m"""
         if len(arg.split()) == 0:
             print("** class name missing **")
         elif arg.split()[0] not in storage.classes():
-             print("** class doesn't exist **")
+            print("** class doesn't exist **")
         elif len(arg.split()) < 2:
             print("** instance id missing **")
         else:
@@ -62,7 +63,7 @@ class name>.show(<id>)\33[0m"""
         if len(arg.split()) == 0:
             print("** class name missing **")
         elif arg.split()[0] not in storage.classes():
-             print("** class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             count = 0
             for v in storage.all().values():
@@ -88,11 +89,29 @@ class name>.all\33[0m --\033[91m[OPTIONAL]\33[0m"""
                     dic.append(str(value))
             print(dic)
 
+    def do_destroy(self, arg):
+        """Deletes an instance based on the class name and id. Usage: \
+\033[92mdestroy <class name> <id>\33[0m or \033[92m<class name>.destroy\
+(<id>)\33[0m"""
+
+        if len(arg.split()) == 0:
+            print("** class name missing **")
+        elif arg.split()[0] not in storage.classes():
+            print("** class doesn't exist **")
+        elif len(arg.split()) < 2:
+            print("** instance id missing **")
+        else:
+            if f"{arg.split()[0]}.{arg.split()[1]}" in storage.all():
+                del storage.all()[f"{arg.split()[0]}.{arg.split()[1]}"]
+                storage.save()
+            else:
+                print("** no instance found **")
+
     def precmd(self, line):
         """Changes input"""
         pattern = r"[(.)]"
         arg = re.split(pattern, line)
-        if len(arg) > 3:# and func[arg[1]]:
+        if len(arg) > 3:
             line = (f"{str(arg[1])} {str(arg[0])} {str(arg[2])}")
         return cmd.Cmd.precmd(self, line)
 
