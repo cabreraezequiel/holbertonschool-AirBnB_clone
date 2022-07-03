@@ -66,26 +66,18 @@ class name>.show(<id>)\33[0m"""
             else:
                 print("** no instance found **")
 
-#    def do_count(self, arg):
-#        """Retrieve the number of instances of a class"""
-#        if len(arg.split()) == 0:
-#            print("** class name missing **")
-#        elif len(arg.split()) > 0:
-#            try:
-#                eval(arg.split()[0])
-#            except NameError:
-#                print("** class doesn't exist **")
-#                return
-#        if len(arg.split()) < 1:
-#            print("** instance id missing **")
-#            return
-#        else:
-#            count = 0
-#            d = storage.all()
-#            for key in d:
-#                if f"{str(arg.split()[0])}" in key:
-#                    count += 1
-#            print(count)
+    def do_count(self, arg):
+        """Retrieve the number of instances of a class"""
+        if len(arg.split()) == 0:
+            print("** class name missing **")
+        elif arg.split()[0] not in storage.classes():
+             print("** class doesn't exist **")
+        else:
+            count = 0
+            for v in storage.all().values():
+                if arg.split()[0] == v.__class__.__name__:
+                    count += 1
+            print(count)
 
     def do_all(self, arg):
         """Prints all string representation of all instances based or not on \
@@ -108,7 +100,7 @@ class name>.all\33[0m --\033[91m[OPTIONAL]\33[0m"""
     def precmd(self, line):
         pattern = r"[(.)]"
         arg = re.split(pattern, line)
-        print(arg)
+#        print(arg)
         if len(arg) > 3:# and func[arg[1]]:
             line = (f"{str(arg[1])} {str(arg[0])} {str(arg[2])}")
 #        else:
