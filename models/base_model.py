@@ -20,7 +20,6 @@ class BaseModel:
                 if key != '__class__':
                     setattr(self, key, value)
         else:
-            #len(kwargs) == 0 or kwargs is None:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
@@ -28,7 +27,8 @@ class BaseModel:
 
     def __str__(self):
         """ overrides str method """
-        print_dic = {k: self.__dict__[k] for k in self.__dict__ if k != '__class__'}
+        print_dic = {k: self.__dict__[k] for k in self.__dict__ if k !=
+                     '__class__'}
         return(f"[{self.__class__.__name__}] ({self.id}) {print_dic}")
 
     def save(self):

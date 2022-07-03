@@ -28,7 +28,7 @@ class FileStorage:
         from models.review import Review
         from models.state import State
 
-        class_dict = {'BaseModel' : BaseModel , 'User' : User, 'Place': Place,
+        class_dict = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
                       'City': City, 'Amenity': Amenity, 'Review': Review,
                       'State': State}
         return class_dict
