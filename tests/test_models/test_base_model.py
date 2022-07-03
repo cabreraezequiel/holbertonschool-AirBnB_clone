@@ -1,8 +1,7 @@
-from models.base_model import BaseModel
-from datetime import datetime
+from models.base_model.engine import FileStorage
 import unittest
 
-class BaseModelTest(unittest.TestCase):
+class FileStorageTest(unittest.TestCase):
 
     def test_types(self):
         base_1 = BaseModel()
