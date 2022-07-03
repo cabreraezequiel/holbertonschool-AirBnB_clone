@@ -2,6 +2,7 @@ from models.base_model import BaseModel
 import unittest
 from datetime import datetime
 
+
 class BaseModelTest(unittest.TestCase):
 
     def test_types(self):
@@ -19,7 +20,8 @@ class BaseModelTest(unittest.TestCase):
 
     def test_str(self):
         base_1 = BaseModel()
-        self.assertEqual(base_1.__str__(), f"[BaseModel] ({base_1.id}) {base_1.__dict__}")
+        self.assertEqual(base_1.__str__(),
+                         f"[BaseModel] ({base_1.id}) {base_1.__dict__}")
 
     def test_save(self):
         base_1 = BaseModel()
