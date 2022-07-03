@@ -7,20 +7,7 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """ Class HBNBCommand that inherits from cmd """
-    prompt = '(hbnb)'
-
-#    def default(self, line):
-#        """Default"""
-##       arg = (line.replace('(', '.')).split('.')
-#        pattern = r"[(.)]"
-#        arg = re.split(pattern, line)
-#        print(arg)
-#        func = self.aliases
-#        command = arg[1]
-#        if len(arg) > 3:# and func[arg[1]]:
-#            (func[command])(f"{str(arg[0])} {str(arg[2])}")
-#        else:
-#            print("*** Unknown syntax: %s" % line)
+    prompt = '(hbnb) '
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -67,7 +54,8 @@ class name>.show(<id>)\33[0m"""
                 print("** no instance found **")
 
     def do_count(self, arg):
-        """Retrieve the number of instances of a class"""
+        """Retrieves the number of instances of a class. Usage: \033[92mcount \
+<class name>\33[0m or \033[92m<class name>.count()\33[0m"""
         if len(arg.split()) == 0:
             print("** class name missing **")
         elif arg.split()[0] not in storage.classes():
@@ -98,14 +86,13 @@ class name>.all\33[0m --\033[91m[OPTIONAL]\33[0m"""
             print(dic)
 
     def precmd(self, line):
+        """Changes input"""
         pattern = r"[(.)]"
         arg = re.split(pattern, line)
-#        print(arg)
         if len(arg) > 3:# and func[arg[1]]:
             line = (f"{str(arg[1])} {str(arg[0])} {str(arg[2])}")
-#        else:
-#            print("*** Unknown syntax: %s" % line)
         return cmd.Cmd.precmd(self, line)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
