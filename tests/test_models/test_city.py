@@ -10,7 +10,7 @@ class CityTest(unittest.TestCase):
         """ Test type of attributes"""
         city_1 = City()
         self.assertIs(type(City.name), str)
-	self.assertIs(type(City.state_id), str)
+        self.assertIs(type(City.state_id), str)
 
     def test_attributes(self):
         """ Test attributes of City class"""
