@@ -59,5 +59,5 @@ Execute the console.
 ```
 
 # Authors
-Ezequiel Cabrera - 
+Ezequiel Cabrera - ezequielcabrera2601@gmail.com
 Agustin Labadie - labalabadie@gmail.com
