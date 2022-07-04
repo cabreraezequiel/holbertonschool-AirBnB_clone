@@ -32,13 +32,12 @@ class FileStorageTest(unittest.TestCase):
         self.assertNotIn(user_1.id, storage.all())
         storage.new(user_1)
         self.assertIn(f"User.{user_1.id}", storage.all().keys())
-
-    def test_save(self):
-        """ Test reload method of FileStorage class"""
         storage_1 = FileStorage()
         storage_2 = FileStorage()
         storage_1.new(self.user_2)
+        up_test = self.user_2.updated_at
         storage_1.save()
+        self.assertNotEqual(up_test, self.user_2.updated_at)
         self.assertIn(f"User.{self.user_2.id}", storage_1.all().keys())
         self.assertIn(f"User.{self.user_2.id}", storage_2.all().keys())
 
@@ -47,3 +46,4 @@ class FileStorageTest(unittest.TestCase):
         storage_1 = FileStorage()
         storage_1.reload()
         self.assertIn(f"User.{self.user_2.id}", storage_1.all().keys())
+
