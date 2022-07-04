@@ -55,3 +55,52 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
             HBNBCommand().onecmd("create BaseModel")
         self.assertNotEqual(f.getvalue(), "")
         self.assertIsNotNone(f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create")
+        self.assertEqual(f.getvalue(), "** class name missing **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create test")
+        self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
+
+    def test_showBaseModel(self):
+        """ Test create BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+        obj_id = f.getvalue()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show")
+        self.assertEqual(f.getvalue(), "** class name missing **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show test")
+        self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show BaseModel 123")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show BaseModel {obj_id}")
+        self.assertIn(f"[BaseModel] ({obj_id[:-1]})", f.getvalue())
+
+    def test_destroyBaseModel(self):
+        """ Test destroy BaseModel """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+        obj_id = f.getvalue()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy")
+        self.assertEqual(f.getvalue(), "** class name missing **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy test")
+        self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel")
+        self.assertEqual(f.getvalue(), "** instance id missing **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel 123")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"destroy BaseModel {obj_id}")
+        self.assertEqual(f.getvalue(), "")
+        self.assertNotIn(f"[BaseModel] ({obj_id[:-1]})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"show BaseModel {obj_id}")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
