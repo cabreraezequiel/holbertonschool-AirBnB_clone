@@ -141,7 +141,6 @@ updating attribute \033[92mupdate <class name> <id> <attribute name> \
             value = arg[2]
             if ", " in arg[2]:
                 value = str(arg[2].replace(", ", " "))
-                print(value)
             line = (f"{str(arg[1])} {str(arg[0])} {value}")
         return cmd.Cmd.precmd(self, line)
 
