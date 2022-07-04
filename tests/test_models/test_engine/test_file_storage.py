@@ -46,4 +46,3 @@ class FileStorageTest(unittest.TestCase):
         storage_1 = FileStorage()
         storage_1.reload()
         self.assertIn(f"User.{self.user_2.id}", storage_1.all().keys())
-
