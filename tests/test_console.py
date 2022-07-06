@@ -160,3 +160,20 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("Amenity.all()")
         self.assertIn(f"[Amenity] ({amenity_1.id})", f.getvalue())
+
+    def test_count(self):
+        """ Test count command """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+        counter = str(int(f.getvalue()) + 1)
+        base_1 = BaseModel()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
+        place_1 = Place()
+        place_2 = Place()
+        user_1 = User()
+        state_1 = State()
+        amenity_1 = Amenity()
+        review_1 = Review()
+        city_1 = City()
