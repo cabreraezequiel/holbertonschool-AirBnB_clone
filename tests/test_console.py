@@ -104,3 +104,24 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"show BaseModel {obj_id}")
         self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    def test_all(self):
+        """ Test all command """
+        base_1 = BaseModel()
+        place_1 = Place()
+        place_2 = Place()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all")
+        self.assertIn(f"[BaseModel] ({base_1.id})", f.getvalue())
+        self.assertIn(f"[Place] ({place_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all test")
+        self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all BaseModel")
+        self.assertIn(f"[BaseModel] ({base_1.id})", f.getvalue())
+        self.assertNotIn(f"[Place] ({place_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all Place")
+        self.assertIn(f"[Place] ({place_1.id})", f.getvalue())
+        self.assertIn(f"[Place] ({place_2.id})", f.getvalue())
