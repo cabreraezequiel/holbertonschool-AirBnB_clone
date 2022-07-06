@@ -133,16 +133,20 @@ updating attribute \033[92mupdate <class name> <id> <attribute name> \
             setattr(storage.all()[k], arg.split()[2], value)
             storage.save()
 
-    def precmd(self, line):
+    def default(self, line):
         """Changes input"""
+        func = {'all': self.do_all, 'show': self.do_show,
+                'count': self.do_count, 'update': self.do_update,
+                'destroy': self.do_destroy}
         pattern = r"[(.)]"
         arg = re.split(pattern, line)
-        if len(arg) > 3:
+        if len(arg) > 3 and arg[1] in func:
             value = arg[2]
             if ", " in arg[2]:
                 value = str(arg[2].replace(", ", " "))
-            line = (f"{str(arg[1])} {str(arg[0])} {value}")
-        return cmd.Cmd.precmd(self, line)
+            return func[str(arg[1])](f"{str(arg[0])} {value}")
+        print("*** Unknown syntax: %s" % line)
+        return False
 
 
 if __name__ == '__main__':
