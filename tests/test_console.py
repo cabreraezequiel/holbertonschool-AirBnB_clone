@@ -86,6 +86,30 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"show BaseModel {obj_id}")
         self.assertIn(f"[BaseModel] ({obj_id[:-1]})", f.getvalue())
+        test = BaseModel()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"BaseModel.show({test.id})")
+        self.assertIn(f"[BaseModel] ({test.id})", f.getvalue())
+        test = User()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.show({test.id})")
+        self.assertIn(f"[User] ({test.id})", f.getvalue())
+        test = Place()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.show({test.id})")
+        self.assertIn(f"[Place] ({test.id})", f.getvalue())
+        test = State()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.show({test.id})")
+        self.assertIn(f"[State] ({test.id})", f.getvalue())
+        test = Amenity()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.show({test.id})")
+        self.assertIn(f"[Amenity] ({test.id})", f.getvalue())
+        test = Review()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.show({test.id})")
+        self.assertIn(f"[Review] ({test.id})", f.getvalue())
 
     def test_destroyBaseModel(self):
         """ Test destroy BaseModel """
@@ -170,10 +194,38 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.count()")
         self.assertEqual(f.getvalue(), counter + '\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Place.count()")
+        counter = str(int(f.getvalue()) + 1)
         place_1 = Place()
-        place_2 = Place()
-        user_1 = User()
-        state_1 = State()
-        amenity_1 = Amenity()
-        review_1 = Review()
-        city_1 = City()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Place.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("User.count()")
+        counter = str(int(f.getvalue()) + 1)
+        test = User()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("User.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("State.count()")
+        counter = str(int(f.getvalue()) + 1)
+        test = State()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("State.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Amenity.count()")
+        counter = str(int(f.getvalue()) + 1)
+        test = Amenity()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Amenity.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Review.count()")
+        counter = str(int(f.getvalue()) + 1)
+        test = Review()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Review.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
