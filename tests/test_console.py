@@ -168,7 +168,7 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         self.assertEqual(f.getvalue(), "** no instance found **\n")
         test = State()
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(f"User.show({test.id})")
+            HBNBCommand().onecmd(f"State.show({test.id})")
         self.assertIn(f"[State] ({test.id})", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"State.destroy({test.id})")
@@ -178,7 +178,7 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         test = Place()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"Place.show({test.id})")
-        self.assertIn(f"[State] ({test.id})", f.getvalue())
+        self.assertIn(f"[Place] ({test.id})", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"Place.destroy({test.id})")
         with patch('sys.stdout', new=StringIO()) as f:
