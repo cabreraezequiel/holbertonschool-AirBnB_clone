@@ -128,3 +128,7 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
             HBNBCommand().onecmd("all Place")
         self.assertIn(f"[Place] ({place_1.id})", f.getvalue())
         self.assertIn(f"[Place] ({place_2.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(HBNBCommand().precmd("BaseModel.all()"))
+        self.assertIn(f"[BaseModel] ({base_1.id})", f.getvalue())
+        self.assertNotIn(f"[Place] ({place_1.id})", f.getvalue())
