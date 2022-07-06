@@ -110,6 +110,10 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"Review.show({test.id})")
         self.assertIn(f"[Review] ({test.id})", f.getvalue())
+        test = City()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.show({test.id})")
+        self.assertIn(f"[City] ({test.id})", f.getvalue())
 
     def test_destroyBaseModel(self):
         """ Test destroy BaseModel """
@@ -134,6 +138,69 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         self.assertNotIn(f"[BaseModel] ({obj_id[:-1]})", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(f"show BaseModel {obj_id}")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = City()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.show({test.id})")
+        self.assertIn(f"[City] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"City.show({test.id})")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = BaseModel()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"BaseModel.show({test.id})")
+        self.assertIn(f"[BaseModel] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"BaseModel.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"BaseModel.show({test.id})")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = User()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.show({test.id})")
+        self.assertIn(f"[User] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.show({test.id})")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = State()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"User.show({test.id})")
+        self.assertIn(f"[State] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"State.show({test.id})")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = Place()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.show({test.id})")
+        self.assertIn(f"[State] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Place.show({test.id})")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = Amenity()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.show({test.id})")
+        self.assertIn(f"[Amenity] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Amenity.show({test.id})")
+        self.assertEqual(f.getvalue(), "** no instance found **\n")
+        test = Review()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.show({test.id})")
+        self.assertIn(f"[Review] ({test.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.destroy({test.id})")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(f"Review.show({test.id})")
         self.assertEqual(f.getvalue(), "** no instance found **\n")
 
     def test_all(self):
@@ -228,4 +295,11 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         test = Review()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("Review.count()")
+        self.assertEqual(f.getvalue(), counter + '\n')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("City.count()")
+        counter = str(int(f.getvalue()) + 1)
+        city_1 = City()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("City.count()")
         self.assertEqual(f.getvalue(), counter + '\n')
