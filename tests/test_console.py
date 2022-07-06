@@ -5,6 +5,10 @@ import unittest
 from unittest.mock import patch
 from io import StringIO
 from models.place import Place
+from models.state import State
+from models.amenity import Amenity
+from models.review import Review
+from models.city import City
 from models.base_model import BaseModel
 from models.user import User
 """Tests for console"""
@@ -113,6 +117,11 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         base_1 = BaseModel()
         place_1 = Place()
         place_2 = Place()
+        user_1 = User()
+        state_1 = State()
+        amenity_1 = Amenity()
+        review_1 = Review()
+        city_1 = City()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("all")
         self.assertIn(f"[BaseModel] ({base_1.id})", f.getvalue())
@@ -129,6 +138,25 @@ an instance based on the class name and id. Usage: \033[92mshow <class name> \
         self.assertIn(f"[Place] ({place_1.id})", f.getvalue())
         self.assertIn(f"[Place] ({place_2.id})", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(HBNBCommand().precmd("BaseModel.all()"))
+            HBNBCommand().onecmd("BaseModel.all()")
         self.assertIn(f"[BaseModel] ({base_1.id})", f.getvalue())
         self.assertNotIn(f"[Place] ({place_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Place.all()")
+        self.assertIn(f"[Place] ({place_1.id})", f.getvalue())
+        self.assertIn(f"[Place] ({place_2.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("User.all()")
+        self.assertIn(f"[User] ({user_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Review.all()")
+        self.assertIn(f"[Review] ({review_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("State.all()")
+        self.assertIn(f"[State] ({state_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("City.all()")
+        self.assertIn(f"[City] ({city_1.id})", f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Amenity.all()")
+        self.assertIn(f"[Amenity] ({amenity_1.id})", f.getvalue())
