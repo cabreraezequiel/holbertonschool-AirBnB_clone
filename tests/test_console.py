@@ -4,6 +4,9 @@ import sys
 import unittest
 from unittest.mock import patch
 from io import StringIO
+from models.place import Place
+from models.base_model import BaseModel
+from models.user import User
 """Tests for console"""
 
 
